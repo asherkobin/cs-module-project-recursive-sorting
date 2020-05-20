@@ -1,28 +1,28 @@
 # # TO-DO: complete the helper function below to merge 2 sorted arrays
 def merge_sorted_arrays(arrayA, arrayB):
   mergedArray = []
-  idxOne = 0
-  idxTwo = 0
+  idxA = 0
+  idxB = 0
 
   # keep looping until the end is reached for one of the arrays
-  while idxOne < len(arrayA) and idxTwo < len(arrayB):
-    if arrayA[idxOne] < arrayB[idxTwo]:
+  while idxA < len(arrayA) and idxB < len(arrayB):
+    if arrayA[idxA] < arrayB[idxB]:
       # if there is smaller, add it from arrayA
-      mergedArray.append(arrayA[idxOne])
-      idxOne += 1
-    elif arrayA[idxOne] >= arrayB[idxTwo]: # duplicates here
+      mergedArray.append(arrayA[idxA])
+      idxA += 1
+    elif arrayA[idxA] >= arrayB[idxB]: # duplicates here
       # if there is a larger or equal, add it from arrayB
-      mergedArray.append(arrayB[idxTwo])
-      idxTwo += 1
+      mergedArray.append(arrayB[idxB])
+      idxB += 1
   print(mergedArray)
   
   # add the remaining items from the longer list
-  while idxOne < len(arrayA):
-    mergedArray.append(arrayA[idxOne])
-    idxOne += 1
-  while idxTwo < len(arrayB):
-    mergedArray.append(arrayB[idxTwo])
-    idxTwo += 1
+  while idxA < len(arrayA):
+    mergedArray.append(arrayA[idxA])
+    idxA += 1
+  while idxB < len(arrayB):
+    mergedArray.append(arrayB[idxB])
+    idxB += 1
 
   return mergedArray
 
@@ -51,7 +51,7 @@ def merge_in_place(arr, start, mid, end):
   # left_array_idxs = left -> mid
   # right_array_idxs = mid -> right
 
-  # eg: 2 < 3 do nothing
+  # eg: 2 < 3, it's in order!
   if arr[mid] <= arr[right]: 
     return
     
