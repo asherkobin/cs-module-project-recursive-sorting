@@ -1,40 +1,117 @@
-# TO-DO: complete the helper function below to merge 2 sorted arrays
-def merge(arrA, arrB):
-    elements = len(arrA) + len(arrB)
-    merged_arr = [0] * elements
+# # TO-DO: complete the helper function below to merge 2 sorted arrays
+def merge_sorted_arrays(arrayA, arrayB):
+  mergedArray = []
+  idxA = 0
+  idxB = 0
 
-    # Your code here
+  # keep looping until the end is reached for one of the arrays
+  while idxA < len(arrayA) and idxB < len(arrayB):
+    if arrayA[idxA] < arrayB[idxB]:
+      # if there is smaller, add it from arrayA
+      mergedArray.append(arrayA[idxA])
+      idxA += 1
+    elif arrayA[idxA] >= arrayB[idxB]: # duplicates here
+      # if there is a larger or equal, add it from arrayB
+      mergedArray.append(arrayB[idxB])
+      idxB += 1
+  print(mergedArray)
+  
+  # add the remaining items from the longer list
+  while idxA < len(arrayA):
+    mergedArray.append(arrayA[idxA])
+    idxA += 1
+  while idxB < len(arrayB):
+    mergedArray.append(arrayB[idxB])
+    idxB += 1
 
+  return mergedArray
 
-    return merged_arr
+# TEST merge
 
+arrA = [1, 2, 8, 9, 12, 19, 26, 30, 33, 37]
+arrB = [10, 20, 24, 30, 31, 49, 59, 62, 63, 71]
 
-# TO-DO: implement the Merge Sort function below USING RECURSION
+print(merge_sorted_arrays(arrA, arrB))
+
 def merge_sort(arr):
-    # Your code here
+  if len(arr) > 1: # array of one item is sorted!
+    left = merge_sort(arr[:len(arr) // 2]) # left half
+    right = merge_sort(arr[len(arr) // 2:]) # right half
+    arr = merge_sorted_arrays(left, right)
+    print(arr)
 
-
-    return arr
-
+  return arr
 
 # implement an in-place merge sort algorithm
 def merge_in_place(arr, start, mid, end):
-    # Your code here
+  left = start
+  right = mid + 1
 
+  # [left -- mid -- right]
+  # left_array_idxs = left -> mid
+  # right_array_idxs = mid -> right
 
-    return arr
+  # eg: 2 < 3, it's in order!
+  if arr[mid] <= arr[right]: 
+    return
+    
+  # [left -- mid -- right]
+  # left_array_idxs = left -> mid
+  # right_array_idxs = mid -> right
+  
+  # until we meet in the middle
+  while left <= mid and right <= end: 
+    r_value = arr[right]
+    l_value = arr[left]
+    
+    # if the value is smaller, go to the next one
+    if l_value <= r_value:
+      left += 1
+    else: # we have it  
+      tmp_idx = right
 
+      # in-place move until left meets right
+      while tmp_idx != left: 
+        arr[tmp_idx] = arr[tmp_idx - 1]
+        tmp_idx -= 1
+        
+      arr[left] = r_value
 
-def merge_sort_in_place(arr, l, r):
-    # Your code here
+      # next iteration
+      left += 1
+      mid += 1
+      right += 1
+  
+  return arr # optional: needed for tests to pass
 
+def merge_sort_in_place(arr, left, right):
+  if left < right: 
+    mp = left + (right - left) // 2
 
-    return arr
+    # easy peasy
+    merge_sort_in_place(arr, left, mp) #left
+    merge_sort_in_place(arr, mp + 1, right) #right
+
+    merge_in_place(arr, left, mp, right)
+
+  return arr
+
 
 
 # STRETCH: implement the Timsort function below
 # hint: check out https://github.com/python/cpython/blob/master/Objects/listsort.txt
 def timsort(arr):
-    # Your code here
+    print("NO WAY")
 
     return arr
+
+import random
+arr1 = [1, 5, 8, 4, 2, 9, 6, 0, 3, 7]
+arr2 = []
+arr3 = [2]
+arr4 = [0, 1, 2, 3, 4, 5]
+arr5 = random.sample(range(200), 50)
+
+print(arr1)
+merge_sort_in_place(arr1, 0, len(arr1)-1)
+print(arr1)
